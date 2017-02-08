@@ -5,14 +5,13 @@ This is custom DatePicker & DatePickerDialog. It should be used for check certai
 ![device-2017-02-08-123814](https://cloud.githubusercontent.com/assets/13554528/22727640/c16ed99c-edfb-11e6-8c26-4edc1508b258.png)
 
 ## Used example
-
-For show a graph of employment
-For show an important date
-and etc.
-
+* Used example
+ * For show a graph of employment
+  * For show an important date and etc
+  
 ## How to use
 
-## Java code
+### Java code
 
 You can add programatically or specify in xml code
 ```java
@@ -26,7 +25,7 @@ You can add programatically or specify in xml code
         //show dialog
 ```
 
-## xml code
+### xml code
 ```xml
  <com.example.myapplication.CustomDatePicker
         android:id="@+id/CustomDatePicker"
