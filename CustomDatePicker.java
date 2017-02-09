@@ -1,33 +1,26 @@
-package com.example.myapplication;
+package com.akscorp.blueboard.CustomDatePicker;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.graphics.Color;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.akscorp.blueboard.MyUtilite.MyPair;
+import com.akscorp.blueboard.R;
 
 import java.text.DateFormatSymbols;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-
-import static java.lang.Math.max;
 
 /**
  * Created by Владимир on 07.02.2017.
@@ -36,7 +29,7 @@ import static java.lang.Math.max;
 public class CustomDatePicker extends LinearLayout {
 
     Context context;
-    ArrayList<ArrayList<MyPair<Integer, Integer>>> selected_interval_list = new ArrayList<>();
+    ArrayList<MyPair<Calendar, Calendar>> selected_interval_list = new ArrayList<>();
 
     CustomDatePicker(Context c, AttributeSet a) {
         super(c, a);
@@ -44,7 +37,12 @@ public class CustomDatePicker extends LinearLayout {
        // setOrientation(VERTICAL);
         setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
     }
-
+    public CustomDatePicker(Context c) {
+        super(c);
+        context = c;
+        // setOrientation(VERTICAL);
+        setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+    }
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         super.onLayout(changed, l, t, r, b);
@@ -56,7 +54,7 @@ public class CustomDatePicker extends LinearLayout {
         }
     }
 
-    void set_selected_interval(ArrayList<ArrayList<MyPair<Integer, Integer>>> busy_list) {
+    public void set_selected_interval(ArrayList<MyPair<Calendar, Calendar>> busy_list) {
         selected_interval_list.clear();
         selected_interval_list.addAll(busy_list);
         invalidate();
@@ -65,7 +63,6 @@ public class CustomDatePicker extends LinearLayout {
     View get_DatePicker(int year) {
         LayoutInflater inflater = LayoutInflater.from(context);
         List<View> pages = new ArrayList<View>();
-        final int[] height = {0};
         for (int i = 0; i < 12; i++) {
             View page = inflater.inflate(R.layout.main_form, null);
             TextView mm = (TextView) page.findViewById(R.id.month);
@@ -74,9 +71,9 @@ public class CustomDatePicker extends LinearLayout {
             int pass = get_month_first_day_of_week(i, year);
 
             if (selected_interval_list.size() > i)
-                gridview.setAdapter(new GridAdapter(context, year, i, selected_interval_list.get(i), pass));
+                gridview.setAdapter(new GridAdapter(context, year, i, selected_interval_list, pass));
             else
-                gridview.setAdapter(new GridAdapter(context, year, i, new ArrayList<MyPair<Integer, Integer>>(), pass));
+                gridview.setAdapter(new GridAdapter(context, year, i, new ArrayList<MyPair<Calendar, Calendar>>(), pass));
 
             gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 public void onItemClick(AdapterView<?> parent, View v,
@@ -102,9 +99,10 @@ public class CustomDatePicker extends LinearLayout {
     }
 
 
-    void show_DatePickerDialog(int year) {
+    public void show_DatePickerDialog(int year) {
 
         LinearLayout linearLayout = new LinearLayout(context);
+        linearLayout.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         //setOrientation(VERTICAL);
         linearLayout.setPadding(15, 5, 15, 5);
         linearLayout.addView(get_DatePicker(year));

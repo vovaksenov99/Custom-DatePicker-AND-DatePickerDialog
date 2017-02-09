@@ -1,19 +1,12 @@
-package com.example.myapplication;
+package com.akscorp.blueboard.CustomDatePicker;
 
 import android.content.Context;
 import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.GridView;
-import android.widget.Toast;
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.zip.Inflater;
 
 /**
  * Created by Владимир on 07.02.2017.

@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.akscorp.blueboard.CustomDatePicker;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -9,6 +9,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.akscorp.blueboard.MyUtilite.MyPair;
+import com.akscorp.blueboard.R;
 
 import java.text.DateFormatSymbols;
 import java.util.ArrayList;
@@ -25,10 +28,10 @@ public class GridAdapter extends BaseAdapter {
 
     int year, month;
     String[] day_of_week_name = new String[7];
-    ArrayList<MyPair<Integer,Integer>> busy_list = new ArrayList<>();
+    ArrayList<MyPair<Calendar,Calendar>> busy_list = new ArrayList<>();
     int pass = 0;
 
-    public GridAdapter(Context c, int year, int month,  ArrayList<MyPair<Integer,Integer>> busy, int pass) {
+    public GridAdapter(Context c, int year, int month, ArrayList<MyPair<Calendar,Calendar>> busy, int pass) {
         context = c;
         this.year = year;
         this.month = month;
@@ -58,7 +61,7 @@ public class GridAdapter extends BaseAdapter {
     // create a new ImageView for each item referenced by the Adapter
     public View getView(int position, View convertView, ViewGroup parent) {
         View v;
-        if (convertView == null) {
+
 
             //fill day of week name
             if (position < 7) {
@@ -94,7 +97,10 @@ public class GridAdapter extends BaseAdapter {
             try {
                 for(int i=0;i<busy_list.size();i++) {
                     int d = position - 6 - pass;
-                    if(busy_list.get(i).first <= d && busy_list.get(i).second >= d) {
+                    Calendar cc = Calendar.getInstance();
+                    cc.set(year,month,d);
+                    if((cc.after(busy_list.get(i).first) && cc.before(busy_list.get(i).second)) || comp(cc,busy_list.get(i).first)
+                            || comp(cc,busy_list.get(i).second)) {
                         tv.set_check(true);
                         break;
                     }
@@ -107,11 +113,16 @@ public class GridAdapter extends BaseAdapter {
             }
 
 
-        } else {
-            v = convertView;
-        }
+
         return v;
     }
-
+    boolean comp(Calendar a,Calendar b)
+    {
+        if(a.get(Calendar.DAY_OF_MONTH) == b.get(Calendar.DAY_OF_MONTH) &&
+                a.get(Calendar.MONTH) == b.get(Calendar.MONTH) &&
+                a.get(Calendar.YEAR) == b.get(Calendar.YEAR))
+            return true;
+        return false;
+    }
 
 }

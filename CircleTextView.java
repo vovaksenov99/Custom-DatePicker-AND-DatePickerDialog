@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.akscorp.blueboard.CustomDatePicker;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -6,8 +6,9 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.util.AttributeSet;
-import android.view.Gravity;
 import android.widget.TextView;
+
+import com.akscorp.blueboard.MyUtilite.MyUtility;
 
 import static java.lang.Math.max;
 
@@ -51,7 +52,8 @@ public class CircleTextView extends TextView {
         // draw circle at center of canvas
         if(IS_CHECK) {
             int ll = max(getMeasuredWidth(), getMeasuredHeight());
-            float k = MyUtility.convertPixelsToDp((ll + PADDING * 2) / 2, context);
+            float pad = MyUtility.convertDpToPixel(5, context);
+            float k = MyUtility.convertDpToPixel(20, context);
             canvas.drawCircle(getMeasuredWidth() / 2, getMeasuredHeight() / 2, k, mCirclePaint);
             setTextColor(Color.WHITE);
         }
