@@ -15,10 +15,9 @@ This is custom DatePicker & DatePickerDialog. It should be used for check certai
 
 You can add programatically or specify in xml code
 ```java
- ArrayList<ArrayList<MyPair<Integer, Integer>>> Selected_interval = new ArrayList<>();
-        Selected_interval.add(new ArrayList<MyPair<Integer, Integer>>());
-        Selected_interval.get(Selected_interval.size() - 1).add(new MyPair<Integer, Integer>().mp(1, 3));
-        //First dimensions is month second dimension is date interval for select. Example above select 1 - 3 day of 0 month(January)
+ ArrayList<MyPair<Calendar, Calendar>> Selected_interval = new ArrayList<>();
+        Selected_interval.add(new MyPair<Calendar, Calendar>().mp(Calendar.getInstance(), Calendar.getInstance()));
+        //First dimensions is month second dimension is date interval for select. Example above select x - y day of z month
         CustomDatePicker ds = (CustomDatePicker) findViewById(R.id.CustomDatePicker);
         ds.set_selected_interval(Selected_interval);
         ds.show_DatePickerDialog(2017);
