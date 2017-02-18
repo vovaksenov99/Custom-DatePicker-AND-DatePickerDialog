@@ -34,15 +34,17 @@ public class CustomDatePicker extends LinearLayout {
     CustomDatePicker(Context c, AttributeSet a) {
         super(c, a);
         context = c;
-       // setOrientation(VERTICAL);
+        // setOrientation(VERTICAL);
         setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
     }
+
     public CustomDatePicker(Context c) {
         super(c);
         context = c;
         // setOrientation(VERTICAL);
         setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
     }
+
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         super.onLayout(changed, l, t, r, b);
@@ -69,11 +71,7 @@ public class CustomDatePicker extends LinearLayout {
             mm.setText(new DateFormatSymbols().getMonths()[i].toString() + " " + Integer.toString(year));
             final GridView gridview = (GridView) page.findViewById(R.id.grid);
             int pass = get_month_first_day_of_week(i, year);
-
-            if (selected_interval_list.size() > i)
-                gridview.setAdapter(new GridAdapter(context, year, i, selected_interval_list, pass));
-            else
-                gridview.setAdapter(new GridAdapter(context, year, i, new ArrayList<MyPair<Calendar, Calendar>>(), pass));
+            gridview.setAdapter(new GridAdapter(context, year, i, selected_interval_list, pass));
 
             gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 public void onItemClick(AdapterView<?> parent, View v,
